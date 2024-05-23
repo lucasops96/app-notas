@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-notas">
+    <div>
+        <h4>Excluir Nota</h4>
+    </div>
+    <div class="card-nota">
+        <form action="{% url 'notas:delete_nota' nota.pk %}" method="post">
+            {% csrf_token %}
+            <div>
+                Tem certeza que deseja excluir a nota {{nota.titulo}}?
+            </div>
+            <a type="button" href="{% url 'notas:listar_notas_user' %}" class="btn btn-secondary" data-dismiss="modal">Fechar</a>
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>   
+</div>
+{% endblock content %}

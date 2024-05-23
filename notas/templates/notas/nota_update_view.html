@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="card-notas">
+    <div>
+        <h4>Editar Nota criada em {{nota.data_criacao}}</h4>
+    </div>
+    <div class="card-nota">
+        <form action="{% url 'notas:update_nota' nota.pk %}" method="post">
+            {% csrf_token %}
+            <div>
+                {{form.titulo.label}}
+                <div>
+                    {{form.titulo}}
+                </div>
+            </div>
+            <div>
+                {{form.conteudo.label}}
+                <div>
+                    {{form.conteudo}}
+                </div>
+            </div>
+            <a type="button" href="{% url 'notas:listar_notas_user' %}" class="btn btn-secondary" data-dismiss="modal">Fechar</a>
+            <button type="submit" class="btn btn-info">Salvar</button>
+        </form>
+    </div>   
+</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Criar Nota</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{% url 'notas:create_nota' %}" method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div>
+                    {{form.titulo.label}}
+                    <div>
+                        {{form.titulo}}
+                    </div>
+                </div>
+                <div>
+                    {{form.conteudo.label}}
+                    <div>
+                        {{form.conteudo}}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-info">Salvar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+<div class="card-notas">
+    <div>
+        <a class="link-add-nota" data-toggle="modal" data-target="#exampleModal" href="">Adicionar Nota</a>
+    </div>
+    {% for nota in notas %}
+        <div class="card-nota">
+            <div class="row">
+                <div class="col-md-9">
+                    <h3>{{nota.titulo}}</h3> 
+                    <span>{{nota.data_criacao}}</span>
+                    <p>
+                        {{nota.conteudo}}
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <a class="link-excluir-nota" href="{% url 'notas:delete_nota' nota.pk %}">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a class="link-editar-nota" href="{% url 'notas:update_nota' nota.pk %}">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>   
+    {% endfor %}
+</div>
+
+{% endblock content %}
